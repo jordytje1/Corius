@@ -7,7 +7,6 @@ const bot = new Client({
     messageCacheLifetime: 240,
     messageSweepInterval: 300,
 });
-const { token } = require('./utils/config.json');
 
 ['commands','aliases', 'usage', 'cooldownTime'].forEach(x => bot[x] = new Collection());
 ['command', 'event'].forEach(x => require(`./handlers/${x}`)(bot));
@@ -22,4 +21,5 @@ bot.on('disconnect', () => errorHandler.disconnect())
 process.on("uncaughtException", err => errorHandler.unhandledRejection(err));
 process.on('unhandledRejection', (err) => errorHandler.unhandledRejection(err));
 
-bot.login(token);
+
+bot.login(process.env.BOT_TOKEN);
